@@ -3,4 +3,4 @@ A simple duplication of the classic Atari game "Pong" using Python's Turtle Grap
 Right player uses up and down arrows, left player uses W and S keys.
 First player to 11 points (or user-specified max score) wins.
 '''
-__version__ = '0.1.0'
+__version__ = '0.2.0'
