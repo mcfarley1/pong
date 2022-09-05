@@ -8,7 +8,7 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 ORIGINAL_SLEEP = 0.05
 
-def main():
+def main(winning_score):
     screen = Screen()
     screen.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
     screen.bgcolor("black")
@@ -29,7 +29,6 @@ def main():
     screen.onkeypress(right_paddle.move_down, "Down")
 
     sleep_time = ORIGINAL_SLEEP
-    WINNING_SCORE = 11
 
     while True:
         time.sleep(sleep_time)
@@ -50,7 +49,7 @@ def main():
 
         elif ball.xcor() > (SCREEN_WIDTH / 2):
             scoreboard.keep_left_score()
-            if scoreboard.left_score == WINNING_SCORE:
+            if scoreboard.left_score == winning_score:
                 scoreboard.game_over(False)
                 break
             ball.start_over()
@@ -58,7 +57,7 @@ def main():
 
         elif ball.xcor() < -(SCREEN_WIDTH / 2):
             scoreboard.keep_right_score()
-            if scoreboard.right_score == WINNING_SCORE:
+            if scoreboard.right_score == winning_score:
                 scoreboard.game_over(True)
                 break
             ball.start_over()
@@ -68,12 +67,11 @@ def main():
 
 
 if __name__ == '__main__':
-    import sys
-    if len(sys.argv) > 1 and sys.argv[1] == 'help':
-        print(__doc__)
-    else:
-        try:
-            main()
-        except:
-            pass # so as not to print out the error message if the user x's out of the game early.
-        print("See you again soon!")
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--score', help='Maximum score, default 11', type=int, default=11, nargs='?', dest='score')
+    args = parser.parse_args()
+    try:
+        main(args.score)
+    except:
+        pass
