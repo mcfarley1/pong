@@ -39,6 +39,7 @@ class Scoreboard(Turtle):
             self.penup()
             self.forward(10)
 
-    def game_over(self):
+    def game_over(self, right_wins):
+        winner = 'RIGHT' if right_wins else 'LEFT'
         self.goto(0, 0)
-        self.write("GAME OVER", move=False, align='center', font=('Arial', 16, 'normal'))
+        self.write(f"{winner} PLAYER WINS!", move=False, align='center', font=('Arial', 16, 'normal'))
